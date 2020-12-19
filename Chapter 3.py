@@ -9,18 +9,11 @@ Created on Wed Dec 16 13:41:44 2020
 
 def task_4():
     L = []
-    for i in range(6):
+    for i in range(10):
         L.append(2**i)
-    X = 5
-    found = False
-    i = 0
-    while not found and i < len(L):
-        if 2 ** X == L[i]:
-            found = True
-        else:
-            i = i + 1
-    if found:
-        print('at index', i)
+    X = 7
+    if 2**X in L:
+        print('at index', L.index(2**X))
     else:
         print(X, 'not found')
 

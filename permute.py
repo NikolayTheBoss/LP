@@ -18,8 +18,11 @@ def permute2(seq):
 
 def main():
     S = '1234567890'
-    print(list(permute2(S)))
-
+    X = permute2(S)
+    input('Press any key...')
+    with open('permutate.txt', 'w') as fout:
+        for i in X: fout.write(i+'\n')
+    return 0
 
 if __name__ == '__main__':
     main()

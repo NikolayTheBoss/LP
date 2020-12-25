@@ -8,7 +8,7 @@
 import sys
 import timer
 
-reps = 10000
+reps = 100
 repslist = list(range(reps))
 
 

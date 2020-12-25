@@ -12,28 +12,28 @@ import sys
 timer = time.perf_counter
 
 
-def total(reps, func, *pargs, **kargs):
+def total(func, *pargs, _reps=1000, **kargs):
     """
     Суммарное время выполнения функции func() reps раз
 
     Возвращает (суммарное время, последний результат)
     """
-    repslist = list(range(reps))     # Уравнять Python 2.x, 3.x
     start = timer()                   # Или perf—Counter/другая в Python 3.3+
-    for i in repslist:
+    for i in range(_reps):
         ret = func(*pargs, **kargs)
         elapsed = timer() - start
     return (elapsed, ret)
 
 
-def bestof(reps, func, *pargs, **kargs):
+def bestof(func, *pargs, _reps=5, **kargs):
     """
-    Самая быстрая функция func() среди reps запусков.
+    Самая быстрая функция func() среди _reps запусков.
 
+    По-умолчанию    
     Возвращает (лучшее время, последний результат)
     """
     best = 2**32          # 136 лет представляется достаточным
-    for i in range(reps):  # range при измерении времени не учитывается
+    for i in range(_reps):  # range при измерении времени не учитывается
         start = timer()
         ret = func(*pargs, **kargs)
         elapsed = timer() - start   # Или вызвать total() c reps=l
@@ -42,9 +42,9 @@ def bestof(reps, func, *pargs, **kargs):
     return (best, ret)
 
 
-def bestoftotal(reps1, reps2, func, *pargs, **kargs):
+def bestoftotal(func, *pargs, _reps=5, **kargs):
     """
     Лучшее суммарное время:
     (лучшее время из reps1 запусков (суммарное время reps2 запусков func))
     """
-    return bestof(reps1, total, reps2, func, *pargs, **kargs)
+    return min(total(func, *pargs, **kargs) for i in range(_reps))

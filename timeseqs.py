@@ -45,6 +45,6 @@ def genFunc() -> list:
 
 if __name__ == '__main__':
     for testFunc in (forLoop, listComp, mapList, genExp, genFunc):
-        (bestof, (total, result)) = timer.bestoftotal (5, 1000, testFunc)
+        (bestof, result) = timer.bestoftotal (testFunc)
         print ('%-9s: %.5f => [%s...%s]' % 
            (testFunc.__name__ , bestof, result[0], result[-1]))
